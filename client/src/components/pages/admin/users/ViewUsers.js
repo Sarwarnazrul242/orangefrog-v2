@@ -95,7 +95,7 @@ const EditPopup = ({ user, onSave, onCancel }) => {
                             </button>
                             <button 
                                 type="submit" 
-                                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full transition-colors"
+                                className="px-4 py-2 bg-black text-white rounded-full transition-colors"
                             >
                                 Save Changes
                             </button>

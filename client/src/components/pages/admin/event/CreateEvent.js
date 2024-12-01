@@ -113,8 +113,12 @@ export default function CreateEvent() {
                                         placeholder="Enter Event Name"
                                         value={formData.eventName}
                                         onChange={handleInputChange}
+                                        maxLength={100}
                                         required
                                     />
+                                    <p className="text-sm text-neutral-400 mt-1">
+                                        {formData.eventName.length}/100 characters
+                                    </p>
                                 </div>
                             </div>
                             <div className="flex flex-wrap -mx-3 mb-6">
@@ -157,8 +161,13 @@ export default function CreateEvent() {
                                         placeholder="Enter Total Hours"
                                         value={formData.eventHours}
                                         onChange={handleInputChange}
+                                        min="1"
+                                        max="168" // Maximum hours in a week
                                         required
                                     />
+                                    <p className="text-sm text-neutral-400 mt-1">
+                                        Maximum: 168 hours (1 week)
+                                    </p>
                                 </div>
                                 <div className="w-full md:w-1/2 px-3">
                                     <label className="block text-neutral-200 text-lg font-bold mb-2">
@@ -185,8 +194,12 @@ export default function CreateEvent() {
                                         placeholder="Enter Event Location"
                                         value={formData.eventLocation}
                                         onChange={handleInputChange}
+                                        maxLength={200}
                                         required
                                     />
+                                    <p className="text-sm text-neutral-400 mt-1">
+                                        {formData.eventLocation.length}/200 characters
+                                    </p>
                                 </div>
                             </div>
                             <div className="flex flex-wrap -mx-3 mb-6">
@@ -201,7 +214,11 @@ export default function CreateEvent() {
                                         rows="4"
                                         value={formData.eventDescription}
                                         onChange={handleInputChange}
+                                        maxLength={1000}
                                     />
+                                    <p className="text-sm text-neutral-400 mt-1">
+                                        {formData.eventDescription.length}/1000 characters
+                                    </p>
                                 </div>
                             </div>
                             <div className="flex justify-center">

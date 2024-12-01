@@ -661,125 +661,145 @@ export default function ViewEvent() {
             {/* Edit Event Popup */}
             {showEditPopup && (
                 <Modal>
-                    <div className="bg-neutral-900 p-8 rounded-lg shadow-lg w-full max-w-2xl border border-neutral-700">
-                        <h1 className="text-2xl font-semibold mb-4 text-white">Edit Event:</h1>
-                        <form className="space-y-4 w-full" onSubmit={saveEdit}>
-                            <div className="flex flex-wrap -mx-3 mb-4">
-                                <div className="w-full px-3">
-                                    <label className="block text-sm font-bold mb-2 text-white">Event Name <span className="text-red-500">*</span></label>
-                                    <input
-                                        className="appearance-none border border-neutral-700 rounded w-full py-2 px-3 bg-neutral-800 text-white leading-tight focus:outline-none focus:border-neutral-500"
-                                        type="text"
-                                        name="eventName"
-                                        placeholder="Enter Event Name"
-                                        value={eventToEdit.eventName}
-                                        onChange={handleInputChange}
-                                        required
-                                    />
-                                </div>
+                    <div className="bg-neutral-900 p-8 rounded-lg shadow-lg w-[90%] max-w-3xl relative border border-neutral-700">
+                        <h2 className="text-2xl font-semibold text-white mb-6">Edit Event</h2>
+                        <form onSubmit={saveEdit} className="space-y-6">
+                            <div>
+                                <label className="block text-neutral-200 text-lg font-bold mb-2">
+                                    Event Name <span className="text-red-500">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    name="eventName"
+                                    value={eventToEdit.eventName}
+                                    onChange={handleInputChange}
+                                    maxLength={100}
+                                    className="appearance-none border border-neutral-600 rounded w-full py-3 px-4 bg-neutral-700 text-white text-lg leading-tight focus:outline-none focus:border-neutral-400 focus:ring-1 focus:ring-neutral-400 transition-colors"
+                                    required
+                                />
+                                <p className="text-sm text-neutral-400 mt-1">
+                                    {eventToEdit.eventName.length}/100 characters
+                                </p>
                             </div>
-                            <div className="flex flex-wrap -mx-3 mb-4">
-                                <div className="w-full md:w-1/2 px-3">
-                                    <label className="block text-sm font-bold mb-2 text-white">Load In <span className="text-red-500">*</span></label>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-neutral-200 text-lg font-bold mb-2">
+                                        Load In <span className="text-red-500">*</span>
+                                    </label>
                                     <input
-                                        className="appearance-none border border-neutral-700 rounded w-full py-2 px-3 bg-neutral-800 text-white leading-tight focus:outline-none focus:border-neutral-500"
                                         type="datetime-local"
                                         name="eventLoadIn"
-                                        value={new Date(eventToEdit.eventLoadIn).toISOString().slice(0, 16)}
+                                        value={eventToEdit.eventLoadIn}
                                         onChange={handleInputChange}
+                                        className="appearance-none border border-neutral-600 rounded w-full py-3 px-4 bg-neutral-700 text-white text-lg leading-tight focus:outline-none focus:border-neutral-400 focus:ring-1 focus:ring-neutral-400 transition-colors"
                                         required
                                     />
                                 </div>
-                                <div className="w-full md:w-1/2 px-3">
-                                    <label className="block text-sm font-bold mb-2 text-white">Load Out <span className="text-red-500">*</span></label>
+                                <div>
+                                    <label className="block text-neutral-200 text-lg font-bold mb-2">
+                                        Load Out <span className="text-red-500">*</span>
+                                    </label>
                                     <input
-                                        className="appearance-none border border-neutral-700 rounded w-full py-2 px-3 bg-neutral-800 text-white leading-tight focus:outline-none focus:border-neutral-500"
                                         type="datetime-local"
                                         name="eventLoadOut"
-                                        value={new Date(eventToEdit.eventLoadOut).toISOString().slice(0, 16)}
+                                        value={eventToEdit.eventLoadOut}
                                         onChange={handleInputChange}
+                                        className="appearance-none border border-neutral-600 rounded w-full py-3 px-4 bg-neutral-700 text-white text-lg leading-tight focus:outline-none focus:border-neutral-400 focus:ring-1 focus:ring-neutral-400 transition-colors"
                                         required
                                     />
                                 </div>
                             </div>
-                            <div className="flex flex-wrap -mx-3 mb-4">
-                                <div className="w-full md:w-1/2 px-3">
-                                    <label className="block text-sm font-bold mb-2 text-white">Location <span className="text-red-500">*</span></label>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-neutral-200 text-lg font-bold mb-2">
+                                        Total Hours <span className="text-red-500">*</span>
+                                    </label>
                                     <input
-                                        className="appearance-none border border-neutral-700 rounded w-full py-2 px-3 bg-neutral-800 text-white leading-tight focus:outline-none focus:border-neutral-500"
-                                        type="text"
-                                        name="eventLocation"
-                                        placeholder="Enter Event Location"
-                                        value={eventToEdit.eventLocation}
-                                        onChange={handleInputChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="w-full md:w-1/2 px-3">
-                                    <label className="block text-sm font-bold mb-2 text-white">Total Hours</label>
-                                    <input
-                                        className="appearance-none border border-neutral-700 rounded w-full py-2 px-3 bg-neutral-800 text-white leading-tight focus:outline-none focus:border-neutral-500"
                                         type="number"
                                         name="eventHours"
-                                        placeholder="Enter Total Hours"
-                                        value={eventToEdit.eventHours || ''}
+                                        value={eventToEdit.eventHours}
                                         onChange={handleInputChange}
-                                    />
-                                </div>
-                            </div>
-                            <div className="flex flex-wrap -mx-3 mb-4">
-                                <div className="w-full px-3">
-                                    <label className="block text-sm font-bold mb-2 text-white">Job Description <span className="text-red-500">*</span></label>
-                                    <textarea
-                                        className="appearance-none border border-neutral-700 rounded w-full py-2 px-3 bg-neutral-800 text-white leading-tight focus:outline-none focus:border-neutral-500"
-                                        name="eventDescription"
-                                        placeholder="Enter Job Description"
-                                        rows="3"
-                                        value={eventToEdit.eventDescription}
-                                        onChange={handleInputChange}
+                                        min="1"
+                                        max="168"
+                                        className="appearance-none border border-neutral-600 rounded w-full py-3 px-4 bg-neutral-700 text-white text-lg leading-tight focus:outline-none focus:border-neutral-400 focus:ring-1 focus:ring-neutral-400 transition-colors"
                                         required
                                     />
+                                    <p className="text-sm text-neutral-400 mt-1">
+                                        Maximum: 168 hours (1 week)
+                                    </p>
+                                </div>
+                                <div>
+                                    <label className="block text-neutral-200 text-lg font-bold mb-2">
+                                        Contractors
+                                    </label>
+                                    <MultiSelect
+                                        options={contractors.map(contractor => ({
+                                            value: contractor._id,
+                                            label: contractor.name
+                                        }))}
+                                        value={selectedContractors.map(id => ({
+                                            value: id,
+                                            label: contractors.find(contractor => contractor._id === id)?.name
+                                        }))}
+                                        onChange={handleContractorChange}
+                                        isMulti
+                                        closeMenuOnSelect={false}
+                                        hideSelectedOptions={false}
+                                    />
                                 </div>
                             </div>
+
+                            <div>
+                                <label className="block text-neutral-200 text-lg font-bold mb-2">
+                                    Location <span className="text-red-500">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    name="eventLocation"
+                                    value={eventToEdit.eventLocation}
+                                    onChange={handleInputChange}
+                                    maxLength={200}
+                                    className="appearance-none border border-neutral-600 rounded w-full py-3 px-4 bg-neutral-700 text-white text-lg leading-tight focus:outline-none focus:border-neutral-400 focus:ring-1 focus:ring-neutral-400 transition-colors"
+                                    required
+                                />
+                                <p className="text-sm text-neutral-400 mt-1">
+                                    {eventToEdit.eventLocation.length}/200 characters
+                                </p>
+                            </div>
+
+                            <div>
+                                <label className="block text-neutral-200 text-lg font-bold mb-2">
+                                    Job Description
+                                </label>
+                                <textarea
+                                    name="eventDescription"
+                                    value={eventToEdit.eventDescription}
+                                    onChange={handleInputChange}
+                                    maxLength={1000}
+                                    rows="4"
+                                    className="appearance-none border border-neutral-600 rounded w-full py-3 px-4 bg-neutral-700 text-white text-lg leading-tight focus:outline-none focus:border-neutral-400 focus:ring-1 focus:ring-neutral-400 transition-colors"
+                                />
+                                <p className="text-sm text-neutral-400 mt-1">
+                                    {eventToEdit.eventDescription.length}/1000 characters
+                                </p>
+                            </div>
+
                             <div className="flex justify-end space-x-4">
-                                <button 
-                                    onClick={() => setShowEditPopup(false)} 
-                                    className="px-4 py-2 bg-neutral-700 hover:bg-neutral-600 text-white rounded transition-colors"
+                                <button
+                                    type="button"
+                                    onClick={() => setShowEditPopup(false)}
+                                    className="px-4 py-2 bg-neutral-700 hover:bg-neutral-600 text-white rounded-lg transition-colors"
                                 >
                                     Cancel
                                 </button>
-                                <button 
-                                    className="px-4 py-2 bg-neutral-800 hover:bg-neutral-700 text-white rounded flex items-center justify-center transition-colors" 
-                                    type="submit" 
+                                <button
+                                    type="submit"
                                     disabled={saving}
+                                    className="px-4 py-2 bg-black text-white rounded-lg transition-colors disabled:opacity-50"
                                 >
-                                    {saving ? (
-                                        <svg
-                                            className="animate-spin h-5 w-5 mr-2 text-white"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <circle
-                                                className="opacity-25"
-                                                cx="12"
-                                                cy="12"
-                                                r="10"
-                                                stroke="currentColor"
-                                                strokeWidth="4"
-                                            ></circle>
-                                            <path
-                                                className="opacity-75"
-                                                fill="currentColor"
-                                                d="M4 12a8 8 0 018-8v8z"
-                                            ></path>
-                                        </svg>
-                                    ) : (
-                                        <>
-                                            <span className="block md:hidden">Save</span>
-                                            <span className="hidden md:block">Save Changes</span>
-                                        </>
-                                    )}
+                                    {saving ? 'Saving...' : 'Save Changes'}
                                 </button>
                             </div>
                         </form>

@@ -154,27 +154,24 @@ router.post('/send-notifications', async (req, res) => {
 
 router.get('/assigned/:email', async (req, res) => {
     try {
-        const { email } = req.params;
-        console.log('Fetching assigned jobs for email:', email);
-        
-        const user = await userCollection.findOne({ email });
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
+        const contractor = await userCollection.findOne({ email: req.params.email });
+        if (!contractor) {
+            return res.status(404).json({ message: 'Contractor not found' });
         }
 
+        // Find events where the contractor is assigned but hasn't taken any action
         const events = await eventCollection.find({
-            assignedContractors: user._id,
-            $and: [
-                { acceptedContractors: { $ne: user._id } },
-                { rejectedContractors: { $ne: user._id } }
-            ]
+            assignedContractors: contractor._id,
+            // Exclude events where the contractor has already taken action
+            acceptedContractors: { $ne: contractor._id },
+            approvedContractors: { $ne: contractor._id },
+            rejectedContractors: { $ne: contractor._id }
         });
-        
-        console.log('Found assigned events:', events);
+
         res.status(200).json(events);
     } catch (error) {
-        console.error('Error fetching assigned events:', error);
-        res.status(500).json({ message: 'Error fetching assigned events' });
+        console.error('Error fetching assigned jobs:', error);
+        res.status(500).json({ message: 'Error fetching assigned jobs' });
     }
 });
 
